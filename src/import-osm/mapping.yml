@@ -2,55 +2,61 @@ tables:
   motorway:
     type: linestring
     fields:
-    - name: osm_id
-      type: id
     - name: geometry
       type: geometry
-    mappings:
+    mapping:
       highway:
       - motorway
       - motorway_link
   trunk:
     type: linestring
     fields:
-    - name: osm_id
-      type: id
     - name: geometry
       type: geometry
-    mappings:
+    mapping:
       highway:
       - trunk
       - trunk_link
   primary_road:
     type: linestring
     fields:
-    - name: osm_id
-      type: id
     - name: geometry
       type: geometry
-    mappings:
+    mapping:
       highway:
       - primary
       - primary_link
   secondary_road:
     type: linestring
     fields:
-    - name: osm_id
-      type: id
     - name: geometry
       type: geometry
-    mappings:
+    mapping:
       highway:
       - secondary
       - secondary_link
   tertiary_road:
     type: linestring
     fields:
-    - name: osm_id
-      type: id
     - name: geometry
       type: geometry
-    mappings:
+    mapping:
       highway:
       - tertiary
       - tertiary_link
+  industrial_zone:
+    type: polygon
+    fields:
+    - name: geometry
+      type: geometry
+    mapping:
+      landuse:
+      - industrial
+  retail_zone:
+    type: polygon
+    fields:
+    - name: geometry
+      type: geometry
+    mapping:
+      landuse:
+      - retail

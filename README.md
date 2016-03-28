@@ -18,6 +18,18 @@ Because we don't have global traffic data we approxmiate noise pollution by traf
 We cannot easily do the smooth levelling pollution spread that cities skylines does but we instead work
 with multiple levels of noise pollution.
 
+### Streets
+
+We will work only with the [different highway tags](http://wiki.openstreetmap.org/wiki/Key:highway) ignoring speed limits
+and country agnostic tags. The highway tags will control the noise pollution level emitted by the roads.
+
+| Tag               | Noise Spread Level 1 | Noise Spread Level 2 | Noise Spread Level 3 |
+|-------------------|----------------------|----------------------|----------------------|
+| highway=motorway  | 50m                  | 100m                 | 150m                 |
+| highway=trunk     | 40m                  | 70m                  | 100m                 |
+| highway=primary   | 20m                  | 50m                  | 70m                  |
+| highway=secondary | 10m                  | 20m                  | 30m                  |
+
 ## Develop
 
 We use the Docker Compose based workflow we developed at [osm2vectortiles](https://github.com/osm2vectortiles/osm2vectortiles) to create an ETL workflow to get data in and out of PostGIS.
@@ -56,7 +68,9 @@ Docker host.
 docker-compose up mapbox-studio
 ```
 
-Login and open the project mounted at `/projects`. Now you can see the direct vector data of the project.
+Login and open the source project via `Browse` mounted at `/projects`. You should see `vector-datasource.tm2source`.
+Open this project and navigate to the location of your extract to check the noise pollution visualized
+in the vector data editor.
 
 
 ### Components
