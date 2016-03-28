@@ -60,6 +60,16 @@ Now let's import the SQL functions and views which analyse the OSM data.
 docker-compose run schema
 ```
 
+We can now export vector tiles containing the noise pollution geometries ready to
+use for map visualizations with Mapnik or Mapbox GL.
+If you want to change the export bounding box from Switzerland to a different
+country you need to modify the `BBOX` env var in `docker-compose.yml`
+for the `export-vectortiles` container.
+
+```bash
+docker-compose run export-vectortiles
+```
+
 And now we have all the data and code in place.
 Let's look at it visually. Start Mapbox Studio and visit the port `3000` on your
 Docker host.
@@ -77,10 +87,10 @@ in the vector data editor.
 
 The different components that attach to the `postgres` container are all located in the `src` directory.
 
-| Component         | Description                                                                                                                  |
-|-------------------|------------------------------------------------------------------------------------------------------------------------------|
-| postgres          | PostGIS data store for OSM data and to perform noise analysis                                                                |
-| import-osm        | Imposm3 based import tool with custom mapping to import selective OSM into the database and reconstruct it as GIS geometries |
-| schema            | Create views, functions and other tables from the imported data needed for the analysis.                                     |
-| vector-datasource | Mapbox Studio Source project to generate vector tiles from the noise pollution geometries                                    |
-| mapbox-studio     | Mapbox Studio in a Docker container with the mounted `vector-datasource` to interactively work with the vector tile project. |
+| Component         | Description
+| postgres          | PostGIS data store for OSM data and to perform noise analysis
+| import-osm        | Imposm3 based import tool with custom mapping to import selective OSM into the database and reconstruct it as GIS geometries
+| schema            | Create views, functions and other tables from the imported data needed for the analysis.
+| vector-datasource | Mapbox Studio Source project to generate vector tiles from the noise pollution geometries.
+| export-vectortiles| Produce vector tiles for the noise pollution geometries from the `vector-datasource` using tilelive
+| mapbox-studio     | Mapbox Studio in a Docker container with the mounted `vector-datasource` to interactively work with the vector tile project.

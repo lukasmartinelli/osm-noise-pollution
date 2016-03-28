@@ -35,3 +35,14 @@ mapbox-studio:
    - postgres:postgres
   ports:
    - "3000:3000"
+export-vectortiles:
+  build: "src/export-vectortiles"
+  volumes:
+   - ./data:/data/export
+   - ./src/vector-datasource:/data/tm2source
+  links:
+   - postgres:db
+  environment:
+    BBOX: "5.8559113 45.717995 10.5922941 47.9084648"
+    MIN_ZOOM: "10"
+    MAX_ZOOM: "10"
