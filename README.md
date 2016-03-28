@@ -22,7 +22,46 @@ with multiple levels of noise pollution.
 
 We use the Docker Compose based workflow we developed at [osm2vectortiles](https://github.com/osm2vectortiles/osm2vectortiles) to create an ETL workflow to get data in and out of PostGIS.
 
+### Get Started
+
+You need a complete OSM PBF data dump either from a [country extract](http://download.geofabrik.de/index.html) or of the [entire world](http://planet.osm.org/).
+
+In this example we will work with my beloved Switzerland. Download the data and put it into the `data` directory.
+
+```bash
+wget --directory-prefix=./data http://download.geofabrik.de/europe/switzerland-latest.osm.pbf
+```
+
+Now we need to set up the database and import the data using the `import-osm` Docker container.
+
+```bash
+# This will automatically initialize the database
+docker-compose up -d postgres
+
+# Import the OSM data dump from the ./data folder
+docker-compose run import-osm
+```
+
+Now let's import the SQL functions and views which analyse the OSM data.
+
+```bash
+docker-compose run schema
+```
+
+And now we have all the data and code in place.
+Let's look at it visually. Start Mapbox Studio and visit the port `3000` on your
+Docker host.
+
+```bash
+docker-compose up mapbox-studio
+```
+
+Login and open the project mounted at `/projects`. Now you can see the direct vector data of the project.
+
+
 ### Components
+
+The different components that attach to the `postgres` container are all located in the `src` directory.
 
 | Component         | Description                                                                                                                  |
 |-------------------|------------------------------------------------------------------------------------------------------------------------------|

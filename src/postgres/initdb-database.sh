@@ -3,9 +3,9 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-readonly DB_NAME=${DB_NAME:-suisse}
-readonly DB_USER=${DB_USER:-suisse}
-readonly DB_PASSWORD=${DB_PASSWORD:-suisse}
+readonly DB_NAME=${DB_NAME:-noise}
+readonly DB_USER=${DB_USER:-noise}
+readonly DB_PASSWORD=${DB_PASSWORD:-noise}
 
 function create_db() {
     echo "Creating database $DB_NAME with owner $DB_USER"
