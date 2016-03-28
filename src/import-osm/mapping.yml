@@ -1,0 +1,251 @@
+tables:
+  buildings:
+    fields:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - name: house_num
+      key: addr:housenumber
+      type: string
+    mapping:
+      building:
+      - __any__
+    type: polygon
+  landusages:
+    type: polygon
+    fields:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - name: type
+      type: mapping_value
+    mapping:
+      landuse:
+      - allotments
+      - farm
+      - farmland
+      - farmyard
+      - orchard
+      - greenhouse_horticulture
+      - plant_nursery
+      - vineyard
+      - grass
+      - grassland
+      - meadow
+      - industrial
+      - park
+      - village_green
+      - recreation_ground
+      - forest
+      - cemetery
+      - beach
+      leisure:
+      - park
+      - playground
+      - dog_park
+      - national_reserve
+      - nature_reserve
+      - golf_course
+      - common
+      - garden
+      - recreation_ground
+      - sports_centre
+      - pitch
+      natural:
+      - glacier
+      - sand
+      - wood
+      - scrub
+      - wetland
+      - mud
+      wetland:
+      - marsh
+      - swamp
+      - tidalflat
+      - bog
+      amenity:
+      - hospital
+      - school
+      - college
+      - university
+      cemetery:
+      - __any__
+      boundary:
+      - national_park
+      tourism:
+      - zoo
+      - camp_site
+  water:
+    type: polygon
+    fields:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - key: name
+      name: name
+      type: string
+    mapping:
+      amenity:
+      - swimming_pool
+      landuse:
+      - basin
+      - reservoir
+      - pond
+      leisure:
+      - swimming_pool
+      water:
+      - swimming_pool
+      natural:
+      - water
+      - bay
+      waterway:
+      - river
+      - riverbank
+      - stream
+      - stream_intermittent
+      - canal
+      - drain
+      - ditch
+  waterways:
+    type: linestring
+    fields:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - key: name
+      name: name
+      type: string
+    - name: type
+      type: mapping_value
+    mapping:
+      barrier:
+      - ditch
+      waterway:
+      - stream
+      - stream_intermittent
+      - river
+      - canal
+      - drain
+      - ditch
+  roads:
+    type: linestring
+    fields:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - name: type
+      type: mapping_value
+    - key: layer
+      name: z_order
+      type: wayzorder
+    - key: tunnel
+      name: is_tunnel
+      type: bool
+    - key: bridge
+      name: is_bridge
+      type: bool
+    - key: name
+      name: name
+      type: string
+    filters:
+      exclude_tags:
+      - ["area", "yes"]
+      - ["amenity", "parking"]
+    mappings:
+      railway:
+        mapping:
+          railway:
+          - rail
+          - tram
+          - light_rail
+          - subway
+          - narrow_gauge
+          - preserved
+          - funicular
+          - monorail
+          - disused
+          service:
+          - yard
+          - driveway
+          - alley
+          - spur
+          - siding
+          - crossover
+          - parking_aisle
+      roads:
+        mapping:
+          highway:
+          - motorway
+          - motorway_link
+          - trunk
+          - trunk_link
+          - primary
+          - primary_link
+          - secondary
+          - secondary_link
+          - tertiary
+          - tertiary_link
+          - road
+          - path
+          - track
+          - service
+          - footway
+          - bridleway
+          - cycleway
+          - steps
+          - pedestrian
+          - living_street
+          - unclassified
+          - residential
+          - raceway
+          access:
+          - private
+          aerialway:
+          - chair_lift
+          - mixed_lift
+          - drag_lift
+          - platter
+          - t-bar
+          - magic_carpet
+          - gondola
+          - cable_car
+          - rope_tow
+          - zip_line
+          - j-bar
+          - canopy
+          golf:
+          - hole
+  places:
+    type: point
+    fields:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - key: name
+      name: name
+      type: string
+    - name: type
+      type: mapping_value
+    - key: population
+      name: population
+      type: integer
+    mapping:
+      place:
+      - region
+      - county
+      - city
+      - district
+      - town
+      - village
+      - municipality
+      - hamlet
+      - suburb
+      - neighbourhood
+      - locality
+      - dwelling

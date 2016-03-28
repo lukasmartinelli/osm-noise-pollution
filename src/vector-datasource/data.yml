@@ -1,0 +1,534 @@
+_prefs: 
+  disabled: 
+    - noise
+    - place_label
+    - country
+    - district
+    - canton
+    - municipality
+    - bridge
+    - road
+    - tunnel
+    - building
+    - landuse
+    - waterway
+    - water
+  inspector: false
+  mapid: ''
+  rev: ''
+  saveCenter: true
+attribution: ''
+center: 
+  - 8.7249
+  - 47.4358
+  - 13
+description: Open Streets
+Layer: 
+  - id: light
+    Datasource: 
+      dbname: suisse
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: postgres
+      key_field: ''
+      key_field_as_attribute: ''
+      max_size: 512
+      password: suisse
+      port: 5432
+      srid: ''
+      table: |-
+        (
+          SELECT 'building' AS light_source,
+                 st_simplify(st_collect(st_buffer(geometry, 100)),0.8) AS geometry
+          FROM osm_buildings
+          WHERE geometry && !bbox! AND z(!scale_denominator!) >= 13
+        ) AS t
+      type: postgis
+      user: suisse
+    description: ''
+    fields: 
+      light_source: String
+    properties: 
+      "buffer-size": 8
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+  - id: water
+    Datasource: 
+      dbname: suisse
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: postgres
+      key_field: osm_id
+      key_field_as_attribute: ''
+      max_size: 512
+      password: suisse
+      port: 5432
+      srid: ''
+      table: |-
+        (
+          SELECT osm_id, geometry, name FROM osm_water
+          WHERE geometry && !bbox!
+        ) AS t
+      type: postgis
+      user: suisse
+    description: ''
+    fields: 
+      name: String
+      osm_id: Number
+    properties: 
+      "buffer-size": 8
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+  - id: waterway
+    Datasource: 
+      dbname: suisse
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: postgres
+      key_field: osm_id
+      key_field_as_attribute: ''
+      max_size: 512
+      password: suisse
+      port: 5432
+      srid: ''
+      table: |-
+        (
+          SELECT osm_id, geometry, name FROM osm_waterways
+          WHERE geometry && !bbox!
+        ) AS t
+      type: postgis
+      user: suisse
+    description: ''
+    fields: 
+      name: String
+      osm_id: Number
+    properties: 
+      "buffer-size": 8
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+  - id: landuse
+    Datasource: 
+      dbname: suisse
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: postgres
+      key_field: osm_id
+      key_field_as_attribute: ''
+      max_size: 512
+      password: suisse
+      port: 5432
+      srid: ''
+      table: |-
+        (
+          SELECT osm_id, geometry, classify_landuse(type) AS class
+          FROM osm_landusages
+          WHERE geometry && !bbox! AND ((
+            z(!scale_denominator!) BETWEEN 5 AND 8
+            AND type IN ('wood', 'nature_reserve', 'national_park', 'forest')
+            AND st_area(geometry) > 5000000
+          ) OR (
+            z(!scale_denominator!) = 9
+            AND type IN ('wood', 'nature_reserve', 'national_park', 'forest')
+            AND st_area(geometry) > 2000000
+          ) OR (
+            z(!scale_denominator!) = 10
+            AND type IN ('wood', 'nature_reserve', 'national_park', 'forest')
+            AND st_area(geometry) > 500000
+          ) OR (
+            z(!scale_denominator!) = 11
+            AND type IN ('wood', 'nature_reserve', 'national_park', 'forest')
+            AND st_area(geometry) > 100000
+          ) OR (
+            z(!scale_denominator!) = 12
+            AND type IN ('wood', 'nature_reserve', 'national_park', 'forest')
+            AND st_area(geometry) > 10000
+          ) OR (
+            z(!scale_denominator!) >= 13
+            AND type NOT IN ('wetland', 'marsh', 'swamp', 'bog', 'mud', 'tidalflat')
+          )
+          )
+        ) AS t
+      type: postgis
+      user: suisse
+    description: LAndusages
+    fields: 
+      class: String
+      osm_id: Number
+    properties: 
+      "buffer-size": 8
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+  - id: building
+    Datasource: 
+      dbname: suisse
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: postgres
+      key_field: osm_id
+      key_field_as_attribute: ''
+      max_size: 512
+      password: suisse
+      port: 5432
+      srid: ''
+      table: |-
+        (
+          SELECT osm_id, geometry, house_num
+          FROM osm_buildings
+          WHERE geometry && !bbox! AND ((
+            z(!scale_denominator!) = 13
+            AND st_area(geometry) > 500
+          ) OR (
+            z(!scale_denominator!) >= 14
+          ))
+          ORDER BY ST_YMin(ST_Envelope(geometry)) DESC
+        ) AS t
+      type: postgis
+      user: suisse
+    description: Buildings
+    fields: 
+      house_num: String
+      osm_id: Number
+    properties: 
+      "buffer-size": 8
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+  - id: tunnel
+    Datasource: 
+      dbname: suisse
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: postgres
+      key_field: ''
+      key_field_as_attribute: ''
+      max_size: 512
+      password: suisse
+      port: 5432
+      srid: ''
+      table: |-
+        (
+          SELECT osm_id, geometry, classify_road(type) AS class, type
+          FROM osm_roads
+          WHERE z(!scale_denominator!) BETWEEN 12 AND 14
+          AND geometry && !bbox!
+          AND is_tunnel
+        ) AS t
+      type: postgis
+      user: suisse
+    description: ''
+    fields: 
+      class: String
+      osm_id: Number
+      type: String
+    properties: 
+      "buffer-size": 8
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+  - id: road
+    Datasource: 
+      dbname: suisse
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: postgres
+      key_field: osm_id
+      key_field_as_attribute: ''
+      max_size: 512
+      password: suisse
+      port: 5432
+      srid: ''
+      table: |-
+        (
+          SELECT osm_id, geometry, type, classify_road(type) as class
+          FROM osm_roads
+          WHERE geometry && !bbox! AND ((
+            z(!scale_denominator!) BETWEEN 5 AND 6
+            AND type IN ('motorway', 'trunk', 'primary', 'motorway_link',
+                         'primary_link', 'trunk_link')
+          )
+          OR (
+            z(!scale_denominator!) = 7
+            AND type IN ('motorway', 'trunk', 'primary', 'motorway_link',
+                         'primary_link', 'trunk_link', 'secondary', 'secondary_link')
+          )
+          OR (
+            z(!scale_denominator!) BETWEEN 8 AND 10
+            AND type IN ('motorway', 'trunk', 'primary', 'motorway_link',
+                         'primary_link', 'trunk_link', 'secondary', 'secondary_link',
+                         'tertiary', 'teriary_link')
+          )
+          OR (
+            z(!scale_denominator!) = 11
+            AND type IN ('motorway', 'trunk', 'primary', 'motorway_link',
+                         'primary_link', 'trunk_link', 'secondary', 'secondary_link',
+                         'tertiary', 'teriary_link')
+            AND NOT is_bridge
+            AND NOT is_tunnel
+          )
+          OR (
+            z(!scale_denominator!) = 12
+            AND type IN ('motorway', 'trunk', 'primary', 'motorway_link',
+                         'primary_link', 'trunk_link', 'secondary', 'secondary_link',
+                         'tertiary', 'teriary_link')
+            AND NOT is_bridge
+            AND NOT is_tunnel
+          )
+          OR (
+            z(!scale_denominator!) = 13
+            AND type IN ('motorway', 'trunk', 'primary', 'motorway_link',
+                         'primary_link', 'trunk_link', 'secondary', 'secondary_link',
+                         'tertiary', 'teriary_link')
+            AND NOT is_bridge
+            AND NOT is_tunnel
+          )
+          OR (
+            z(!scale_denominator!) = 14
+            AND NOT is_bridge
+            AND NOT is_tunnel
+          ))
+          ORDER BY z_order ASC
+        ) AS t
+      type: postgis
+      user: suisse
+    description: road
+    fields: 
+      class: Number
+      osm_id: Number
+      type: String
+    properties: 
+      "buffer-size": 8
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+  - id: bridge
+    Datasource: 
+      dbname: suisse
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: postgres
+      key_field: ''
+      key_field_as_attribute: ''
+      max_size: 512
+      password: suisse
+      port: 5432
+      srid: ''
+      table: |-
+        (
+          SELECT osm_id, geometry, classify_road(type) AS class, type
+          FROM osm_roads
+          WHERE z(!scale_denominator!) BETWEEN 12 AND 14
+          AND geometry && !bbox!
+          AND is_bridge
+        ) AS t
+      type: postgis
+      user: suisse
+    description: Bridge
+    fields: 
+      class: String
+      osm_id: Number
+      type: String
+    properties: 
+      "buffer-size": 8
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+  - id: municipality
+    Datasource: 
+      dbname: suisse
+      extent: -180,-85.0511,180,85.0511
+      geometry_field: ''
+      geometry_table: ''
+      host: postgres
+      key_field: id
+      key_field_as_attribute: ''
+      max_size: 512
+      password: suisse
+      port: 5432
+      srid: ''
+      table: |-
+        (
+           SELECT id, geometry, name FROM public.municipalities
+        ) AS t
+      type: postgis
+      user: suisse
+    description: Hoheitsgebiet
+    fields: 
+      id: Number
+      name: String
+    properties: 
+      "buffer-size": 8
+    srs: +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs
+  - id: canton
+    Datasource: 
+      dbname: suisse
+      extent: -180,-85.0511,180,85.0511
+      geometry_field: ''
+      geometry_table: ''
+      host: postgres
+      key_field: id
+      key_field_as_attribute: ''
+      max_size: 512
+      password: suisse
+      port: 5432
+      srid: ''
+      table: |-
+        (
+          SELECT id, geometry, name FROM public.cantons
+        ) AS t
+      type: postgis
+      user: suisse
+    description: Canonts
+    fields: 
+      id: Number
+      name: String
+    properties: 
+      "buffer-size": 8
+    srs: +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs
+  - id: district
+    Datasource: 
+      dbname: suisse
+      extent: -180,-85.0511,180,85.0511
+      geometry_field: ''
+      geometry_table: ''
+      host: postgres
+      key_field: id
+      key_field_as_attribute: ''
+      max_size: 512
+      password: suisse
+      port: 5432
+      srid: ''
+      table: |-
+        (
+          SELECT id, name, geometry FROM public.districts
+        ) AS t
+      type: postgis
+      user: suisse
+    description: Districts
+    fields: 
+      id: Number
+      name: String
+    properties: 
+      "buffer-size": 8
+    srs: +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs
+  - id: country
+    Datasource: 
+      dbname: suisse
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: postgres
+      key_field: ''
+      key_field_as_attribute: ''
+      max_size: 512
+      password: suisse
+      port: 5432
+      srid: ''
+      table: |-
+        (
+          SELECT * FROM public.countries
+        ) AS t
+      type: postgis
+      user: suisse
+    description: ''
+    fields: 
+      name: String
+    properties: 
+      "buffer-size": 8
+    srs: +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs
+  - id: place_label
+    Datasource: 
+      dbname: suisse
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: postgres
+      key_field: osm_id
+      key_field_as_attribute: ''
+      max_size: 512
+      password: suisse
+      port: 5432
+      srid: ''
+      table: |-
+        (
+          SELECT osm_id,
+        geometry,  
+        name,
+        type,
+        rank() OVER (PARTITION BY LabelGrid(geometry, 250 * !pixel_width!)
+                     ORDER BY  population DESC NULLS LAST
+                    ) AS localrank
+        FROM osm_places
+        WHERE geometry && !bbox! AND name <> '' AND ((
+          z(!scale_denominator!) = 8 
+          AND type IN ('city', 'town')
+        ) OR (
+          z(!scale_denominator!) BETWEEN 9 AND 10
+          AND type IN ('city', 'town', 'district')
+        ) OR (
+          z(!scale_denominator!) BETWEEN 11 AND 12
+          AND type IN ('city', 'town', 'district', 'village')
+        ) OR (
+          z(!scale_denominator!) = 13
+          AND type IN ('city', 'town', 'district', 'village',
+                       'hamlet', 'suburb','neighbourhood')
+        ) OR (
+          z(!scale_denominator!) = 14
+        ))
+        ) AS t
+      type: postgis
+      user: suisse
+    description: ''
+    fields: 
+      localrank: Number
+      name: String
+      osm_id: Number
+      type: String
+    properties: 
+      "buffer-size": 64
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+  - id: noise
+    Datasource: 
+      dbname: suisse
+      extent: -20037508.34,-20037508.34,20037508.34,20037508.34
+      geometry_field: ''
+      geometry_table: ''
+      host: postgres
+      key_field: ''
+      key_field_as_attribute: ''
+      max_size: 512
+      password: suisse
+      port: 5432
+      srid: ''
+      table: |-
+        (
+          SELECT * FROM (
+          SELECT 'major_street' AS noise_source,
+                 st_union(st_buffer(geometry, 100)) AS geometry
+          FROM osm_roads
+          WHERE geometry && !bbox! AND type IN (
+            'motorway', 'trunk', 'primary', 'motorway_link',
+            'primary_link', 'trunk_link'
+          )
+          UNION ALL
+          SELECT 'minor_street' AS noise_source,
+                 st_union(st_buffer(geometry, 50)) AS geometry
+          FROM osm_roads
+          WHERE geometry && !bbox! AND type IN (
+            'secondary', 'secondary_link',
+            'tertiary', 'teriary_link'
+          )
+          UNION ALL
+          SELECT 'railway' AS noise_source,
+                 st_union(st_buffer(geometry, 70)) AS geometry
+          FROM osm_roads
+          WHERE geometry && !bbox! AND type='rail'
+          ) AS noise
+          WHERE z(!scale_denominator!) > 10
+        ) AS t
+      type: postgis
+      user: suisse
+    description: ''
+    fields: 
+      noise_source: String
+    properties: 
+      "buffer-size": 8
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+maxzoom: 14
+minzoom: 0
+name: Open Streets

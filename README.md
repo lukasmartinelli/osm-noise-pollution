@@ -17,3 +17,17 @@ Because we don't have global traffic data we approxmiate noise pollution by traf
 
 We cannot easily do the smooth levelling pollution spread that cities skylines does but we instead work
 with multiple levels of noise pollution.
+
+## Develop
+
+We use the Docker Compose based workflow we developed at [osm2vectortiles](https://github.com/osm2vectortiles/osm2vectortiles) to create an ETL workflow to get data in and out of PostGIS.
+
+### Components
+
+| Component         | Description                                                                                                                  |
+|-------------------|------------------------------------------------------------------------------------------------------------------------------|
+| postgres          | PostGIS data store for OSM data and to perform noise analysis                                                                |
+| import-osm        | Imposm3 based import tool with custom mapping to import selective OSM into the database and reconstruct it as GIS geometries |
+| schema            | Create views, functions and other tables from the imported data needed for the analysis.                                     |
+| vector-datasource | Mapbox Studio Source project to generate vector tiles from the noise pollution geometries                                    |
+| mapbox-studio     | Mapbox Studio in a Docker container with the mounted `vector-datasource` to interactively work with the vector tile project. |

@@ -1,0 +1,37 @@
+pgdata:
+  image: "tianon/true"
+  volumes:
+  - /var/lib/postgresql/data
+cache:
+  image: "tianon/true"
+  volumes:
+  - /data/cache
+postgres:
+  build: "src/postgres"
+  mem_limit: 500000000
+  volumes_from:
+   - pgdata
+  ports:
+   - "5432"
+schema:
+  build: "src/schema"
+  links:
+   - postgres:postgres
+import-osm:
+  build: "src/import-osm"
+  command: ./import-osm.sh
+  volumes:
+   - ./data:/data/import
+  volumes_from:
+   - cache
+  links:
+   - postgres:postgres
+mapbox-studio:
+  build: "src/mapbox-studio"
+  mem_limit: 500000000
+  volumes:
+   - ./src/vector-datasource:/projects/vector-datasource.tm2source
+  links:
+   - postgres:postgres
+  ports:
+   - "3000:3000"
