@@ -74,9 +74,9 @@ in the vector data editor.
 The different components that attach to the `postgres` container are all located in the `src` directory.
 
 | Component         | Description
+|-------------------|--------------------------------------------------------------
 | postgres          | PostGIS data store for OSM data and to perform noise analysis
 | import-osm        | Imposm3 based import tool with custom mapping to import selective OSM into the database and reconstruct it as GIS geometries
-| schema            | Create views, functions and other tables from the imported data needed for the analysis.
 | vector-datasource | Mapbox Studio Source project to generate vector tiles from the noise pollution geometries.
 | export-vectortiles| Produce vector tiles for the noise pollution geometries from the `vector-datasource` using tilelive
 | mapbox-studio     | Mapbox Studio in a Docker container with the mounted `vector-datasource` to interactively work with the vector tile project.
