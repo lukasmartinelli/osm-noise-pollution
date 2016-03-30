@@ -1,34 +1,24 @@
 # osm-noise-pollution
-Approximate global noise pollution with OSM data and simplified noise model from Cities Skylines
+Approximate global noise pollution with OSM data and very simple noise model.
 
-The city building simulation [Cities Skylines](https://en.wikipedia.org/wiki/Cities:_Skylines) has the [concept of noise pollution](http://www.skylineswiki.com/Pollution#Noise_pollution)
-affecting the value of properties. Something that exists in the real world as well.
-We want to apply this simplified model back to the real world using global street and landuse data from [OpenStreetMap](https://openstreetmap.org).
+Using global street, landuse and building data from [OpenStreetMap](https://openstreetmap.org) we can approximate where noise pollution might happen. We use a very simple noise model inspired by [noise pollution concept of Cities Skylines](http://www.skylineswiki.com/Pollution#Noise_pollution).
 
-## Noise Pollution Model in Cities Skylines
+In the model we add a buffer to **noisy objects**. This is the area that is probably affected by noise. Very noisy objects get a high buffer and less noisy objects a smaller buffer.
 
-> Roads, industry, commercial zones, and various buildings (such as power plants and unique buildings) cause sound pollution. A high level of noise pollution reduces land value and citizen happiness.
+In order for this to work we make several assumptions:
 
-![Cities Skylines Noise pollution](http://www.skylineswiki.com/images/2/2d/Noise_Pollution_Info_View_SS.png)
+1. Highways, trunks, primary and secondary roads are noisy. Normal street or service roads don't emit 
+2. Retail and industrial zones always have a noisy base limit
+3. All shops and food places (especially restaurants) are noisy
+4. Most party and event buildings are noisy (except some shady places)
+5. Most leisure buildings are noisy
+6. Some sport buildings are noisy
+7. Some tourism buildings are noisy
 
-## Noise Pollution Model for the Real World
+For OSM features that match this criterias we assign a buffer and remove the overlapping parts which results
+in a very simple approximation where noisy places are.
 
-Because we don't have global traffic data we approxmiate noise pollution by traffic with the [size of the roads](http://wiki.openstreetmap.org/wiki/Highways). Assuming roads with higher capacity will have more cars and therefore produce more noise pollution.
 
-We cannot easily do the smooth levelling pollution spread that cities skylines does but we instead work
-with multiple levels of noise pollution.
-
-### Streets
-
-We will work only with the [different highway tags](http://wiki.openstreetmap.org/wiki/Key:highway) ignoring speed limits
-and country agnostic tags. The highway tags will control the noise pollution level emitted by the roads.
-
-| Tag               | Noise Spread Level 1 | Noise Spread Level 2 | Noise Spread Level 3 |
-|-------------------|----------------------|----------------------|----------------------|
-| highway=motorway  | 50m                  | 100m                 | 150m                 |
-| highway=trunk     | 40m                  | 70m                  | 100m                 |
-| highway=primary   | 20m                  | 50m                  | 70m                  |
-| highway=secondary | 10m                  | 20m                  | 30m                  |
 
 ## Develop
 
