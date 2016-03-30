@@ -18,7 +18,7 @@ In order for this to work we make several assumptions:
 For OSM features that match this criterias we assign a buffer and remove the overlapping parts which results
 in a very simple approximation where noisy places are.
 
-
+![Noise map of Zurich](noise_map.png)
 
 ## Develop
 
