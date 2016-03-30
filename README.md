@@ -1,13 +1,15 @@
 # osm-noise-pollution
-Approximate global noise pollution with OSM data and very simple noise model.
 
-Using global street, landuse and building data from [OpenStreetMap](https://openstreetmap.org) we can approximate where noise pollution might happen. We use a very simple noise model inspired by [noise pollution concept of Cities Skylines](http://www.skylineswiki.com/Pollution#Noise_pollution).
+Approximate global noise pollution with OSM data and very simple noise model.
+Using global street, landuse and building data from [OpenStreetMap](https://openstreetmap.org)
+we can approximate where noise pollution might happen.
+We use a very simple noise model inspired by [noise pollution concept of Cities Skylines](http://www.skylineswiki.com/Pollution#Noise_pollution).
 
 In the model we add a buffer to **noisy objects**. This is the area that is probably affected by noise. Very noisy objects get a high buffer and less noisy objects a smaller buffer.
 
 In order for this to work we make several assumptions:
 
-1. Highways, trunks, primary and secondary roads are noisy. Normal street or service roads don't emit 
+1. Highways, trunks, primary and secondary roads are noisy. Normal street or service roads are not
 2. Retail and industrial zones always have a noisy base limit
 3. All shops and food places (especially restaurants) are noisy
 4. Most party and event buildings are noisy (except some shady places)
@@ -16,7 +18,7 @@ In order for this to work we make several assumptions:
 7. Some tourism buildings are noisy
 
 For OSM features that match this criterias we assign a buffer and remove the overlapping parts which results
-in a very simple approximation where noisy places are.
+in a simple approximation of noise pollution.
 
 ![Noise map of Zurich](noise_map.png)
 
@@ -42,12 +44,6 @@ docker-compose up -d postgres
 
 # Import the OSM data dump from the ./data folder
 docker-compose run import-osm
-```
-
-Now let's import the SQL functions and views which analyse the OSM data.
-
-```bash
-docker-compose run schema
 ```
 
 We can now export vector tiles containing the noise pollution geometries ready to

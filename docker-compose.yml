@@ -13,10 +13,6 @@ postgres:
    - pgdata
   ports:
    - "5432"
-schema:
-  build: "src/schema"
-  links:
-   - postgres:postgres
 import-osm:
   build: "src/import-osm"
   command: ./import-osm.sh
