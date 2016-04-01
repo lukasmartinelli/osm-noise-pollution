@@ -27,6 +27,8 @@ in a simple approximation of noise pollution.
 
 We use the Docker Compose based workflow we developed at [osm2vectortiles](https://github.com/osm2vectortiles/osm2vectortiles) to create an ETL workflow to get data in and out of PostGIS.
 
+The Mapbox GL stylesheet used for the map can be found in `style.json`.
+
 ## Zoning
 
 The zoning areas are divided into three noise level.
