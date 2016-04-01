@@ -151,9 +151,3 @@ tables:
       - volleyball
       - tennis
       - water_ski
-      tourism:
-      - camp_site
-      - museum
-      - picnic_site
-      - theme_park
-      - zoo

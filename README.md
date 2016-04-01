@@ -26,6 +26,60 @@ in a simple approximation of noise pollution.
 
 We use the Docker Compose based workflow we developed at [osm2vectortiles](https://github.com/osm2vectortiles/osm2vectortiles) to create an ETL workflow to get data in and out of PostGIS.
 
+## Zoning
+
+The zoning areas are divided into three noise level.
+
+| Zone   | dB
+|--------|-----------
+| L1     | ≥ 65
+| L2     | 55 - 64.9
+| L3     | 45 - 54.9
+
+Each OSM feature emits a custom buffer for each noise level.
+You are very welcome to suggest different values, they are only educated guesses derived from the Swiss [sonBASE noise map](https://map.geo.admin.ch/?Y=716599.25&X=230992.54&zoom=8&bgLayer=ch.swisstopo.pixelkarte-grau&layers=ch.bafu.laerm-strassenlaerm_tag&layers_opacity=0.7&lang=de&topic=bafu). Of course this approximation does not include damping through buildings,
+traffic volume and all the other fancy stuff - but it is simple enough to be applied globally.
+
+## Roads
+
+| Tag               | L1  | L2   | L3   |
+|-------------------|-----|------|------|
+| highway=motorway  | 60m | 220m | 500m |
+| highway=trunk     | 50m | 190m | 400m |
+| highway=primary   | 35m | 160m | 300m |
+| highway=secondary |     | 80m  | 125m |
+| highway=tertiary  |     | 35m  | 65m  |
+
+## Industrial and Retail Zones
+
+| Tag               | L1  | L2   | L3   |
+|-------------------|-----|------|------|
+| landuse=industrial|     | 50m | 100m |
+| landuse=retail    |     | 70m | 180m |
+
+## Shops and Food
+
+| Tag                       | L1  | L2   | L3   |
+|---------------------------|-----|------|------|
+| shop=[any]                | 10m | 30m | 60m |
+| amenity=[bar,bbq,cafe,..] | 15m | 35m | 60m |
+
+## Party and Leisure
+
+| Tag                                  | L1  | L2   | L3   |
+|--------------------------------------|-----|------|------|
+| amenity=[cinema,casino,nightclub,..] | 40m | 100m | 200m |
+| amenity=[bar,bbq,cafe,..]            | 15m | 35m  | 60m  |
+| leisure=[beach_resort,water_park,..] | 30m | 55m  | 70m  |
+| tourism=[camp_site,museum,zoo,..]    | 30m | 50m  | 70m  |
+
+## Sport
+
+| Tag                         | L1  | L2   | L3   |
+|-----------------------------|-----|------|------|
+| sporty=[baseball,soccer,..] | 30m | 60m  | 95m  |
+
+
 ### Get Started
 
 You need a complete OSM PBF data dump either from a [country extract](http://download.geofabrik.de/index.html) or of the [entire world](http://planet.osm.org/).
