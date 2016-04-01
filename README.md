@@ -40,7 +40,7 @@ Each OSM feature emits a custom buffer for each noise level.
 You are very welcome to suggest different values, they are only educated guesses derived from the Swiss [sonBASE noise map](https://map.geo.admin.ch/?Y=716599.25&X=230992.54&zoom=8&bgLayer=ch.swisstopo.pixelkarte-grau&layers=ch.bafu.laerm-strassenlaerm_tag&layers_opacity=0.7&lang=de&topic=bafu). Of course this approximation does not include damping through buildings,
 traffic volume and all the other fancy stuff - but it is simple enough to be applied globally.
 
-## Roads
+### Roads
 
 | Tag               | L1  | L2   | L3   |
 |-------------------|-----|------|------|
@@ -50,30 +50,34 @@ traffic volume and all the other fancy stuff - but it is simple enough to be app
 | highway=secondary |     | 80m  | 125m |
 | highway=tertiary  |     | 35m  | 65m  |
 
-## Industrial and Retail Zones
+### Industrial and Retail Zones
 
 | Tag               | L1  | L2   | L3   |
 |-------------------|-----|------|------|
 | landuse=industrial|     | 50m | 100m |
 | landuse=retail    |     | 70m | 180m |
 
-## Shops and Food
+### Shops and Food
 
 | Tag                       | L1  | L2   | L3   |
 |---------------------------|-----|------|------|
 | shop=[any]                | 10m | 30m | 60m |
 | amenity=[bar,bbq,cafe,..] | 15m | 35m | 60m |
 
-## Party and Leisure
+### Party
 
 | Tag                                  | L1  | L2   | L3   |
 |--------------------------------------|-----|------|------|
-| amenity=[cinema,casino,nightclub,..] | 40m | 100m | 200m |
-| amenity=[bar,bbq,cafe,..]            | 15m | 35m  | 60m  |
-| leisure=[beach_resort,water_park,..] | 30m | 55m  | 70m  |
-| tourism=[camp_site,museum,zoo,..]    | 30m | 50m  | 70m  |
+| amenity=[cinema,casino,nightclub,..] | 40m | 70m | 150m |
 
-## Sport
+
+### Leisure
+
+| Tag                           | L1  | L2   | L3   |
+|-------------------------------|-----|------|------|
+| leisure=[beach_resort,zoo,..] | 30m | 55m  | 70m  |
+
+### Sport
 
 | Tag                         | L1  | L2   | L3   |
 |-----------------------------|-----|------|------|
