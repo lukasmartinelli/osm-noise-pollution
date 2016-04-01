@@ -10,7 +10,7 @@ In the model we add a buffer to **noisy objects**. This is the area that is prob
 In order for this to work we make several assumptions:
 
 1. Highways, trunks, primary and secondary roads are noisy. Normal street or service roads are not
-2. Railways are noisy 
+2. Railways are noisy
 3. Retail and industrial zones always have a noisy base limit
 4. All shops and food places (especially restaurants) are noisy
 5. Most party and event buildings are noisy (except some shady places)
@@ -25,13 +25,11 @@ in a simple approximation of noise pollution.
 
 ## Develop
 
-We use the Docker Compose based workflow we developed at [osm2vectortiles](https://github.com/osm2vectortiles/osm2vectortiles) to create an ETL workflow to get data in and out of PostGIS.
+We use the Docker Compose based workflow we developed at [osm2vectortiles](https://github.com/osm2vectortiles/osm2vectortiles) to create an ETL workflow to get data in and out of PostGIS. The Mapbox GL stylesheet used for the map can be found in `style.json`.
 
-The Mapbox GL stylesheet used for the map can be found in `style.json`.
+## Noise Levels
 
-## Zoning
-
-The zoning areas are divided into three noise level.
+The noise pollution areas are divided into three noise level.
 
 | Zone   | dB
 |--------|-----------
@@ -45,53 +43,53 @@ traffic volume and all the other fancy stuff - but it is simple enough to be app
 
 ### Roads
 
-| Tag               | L1  | L2   | L3   |
-|-------------------|-----|------|------|
-| highway=motorway  | 60m | 220m | 500m |
-| highway=trunk     | 50m | 190m | 400m |
-| highway=primary   | 35m | 160m | 300m |
-| highway=secondary |     | 80m  | 125m |
-| highway=tertiary  |     | 35m  | 65m  |
+| Tag                 | L1    | L2     | L3
+|---------------------|-------|--------|---------
+| `highway=motorway`  | `60m` | `220m` | `500m`
+| `highway=trunk`     | `50m` | `190m` | `400m`
+| `highway=primary`   | `35m` | `160m` | `300m`
+| `highway=secondary` |       | `80m`  | `125m`
+| `highway=tertiary`  |       | `35m`  | `65m`
 
 ### Railways
 
-| Tag                         | L1  | L2   | L3   |
-|-----------------------------|-----|------|------|
-| rail=[rail,narrow_gauge,..] | 30m | 60m | 100m  |
-| rail=[light_rail,tram,..]   |     | 30m | 60m   |
+| Tag                           | L1    | L2    | L3
+|-------------------------------|-------|-------|---------
+| `rail=[rail,narrow_gauge,..]` | `30m` | `60m` | `100m`
+| `rail=[light_rail,tram,..]`   |       | `30m` | `60m`
 
 ### Industrial and Retail Zones
 
 | Tag               | L1  | L2   | L3   |
 |-------------------|-----|------|------|
-| landuse=industrial|     | 50m | 100m |
-| landuse=retail    |     | 70m | 180m |
+| `landuse=industrial`|     | `50m` | `100m` |
+| `landuse=retail`    |     | `70m` | `180m` |
 
 ### Shops and Food
 
-| Tag                       | L1  | L2   | L3   |
-|---------------------------|-----|------|------|
-| shop=[any]                |     | 30m | 65m |
-| amenity=[bar,bbq,cafe,..] |     | 35m | 75m |
+| Tag                         | L1  | L2    | L3
+|-----------------------------|-----|-------|--------
+| `shop=[any]`                |     | `30m` | `65m`
+| `amenity=[bar,bbq,cafe,..]` |     | `35m` | `75m`
 
 ### Party
 
-| Tag                                  | L1  | L2   | L3   |
-|--------------------------------------|-----|------|------|
-| amenity=[cinema,casino,nightclub,..] | 40m | 70m | 150m |
+| Tag                                    | L1    | L2    | L3
+|----------------------------------------|-------|-------|--------
+| `amenity=[cinema,casino,nightclub,..]` | `40m` | `70m` | `150m`
 
 
 ### Leisure
 
-| Tag                           | L1  | L2   | L3   |
-|-------------------------------|-----|------|------|
-| leisure=[beach_resort,zoo,..] | 35m | 55m  | 75m  |
+| Tag                             | L1    | L2     | L3
+|---------------------------------|-------|--------|-------
+| `leisure=[beach_resort,zoo,..]` | `35m` | `55m`  | `75m`
 
 ### Sport
 
-| Tag                         | L1  | L2   | L3   |
-|-----------------------------|-----|------|------|
-| sporty=[baseball,soccer,..] | 40m | 60m  | 80m  |
+| Tag                           | L1    | L2     | L3
+|-------------------------------|-------|--------|-------
+| `sporty=[baseball,soccer,..]` | `40m` | `60m`  | `80m`
 
 These values are implemented in the vector tile data source in `src/vector-datasource/data.yml`.
 
