@@ -80,8 +80,6 @@ tables:
     fields:
     - name: geometry
       type: geometry
-    - name: type
-      type: mapping_value
     mapping:
       shop: [__any__]
   food:
@@ -89,8 +87,6 @@ tables:
     fields:
     - name: geometry
       type: geometry
-    - name: type
-      type: mapping_value
     mapping:
       amenity:
       - bar
@@ -107,8 +103,6 @@ tables:
     fields:
     - name: geometry
       type: geometry
-    - name: type
-      type: mapping_value
     mapping:
       amenity:
       - cinema
@@ -123,8 +117,6 @@ tables:
     fields:
     - name: geometry
       type: geometry
-    - name: type
-      type: mapping_value
     mapping:
       leisure:
       - beach_resort
@@ -141,8 +133,6 @@ tables:
     fields:
     - name: geometry
       type: geometry
-    - name: type
-      type: mapping_value
     mapping:
       sport:
       - american_football
@@ -166,3 +156,33 @@ tables:
       - volleyball
       - tennis
       - water_ski
+  railway:
+    type: linestring
+    fields:
+    - name: geometry
+      type: geometry
+    mapping:
+      railway:
+      - rail
+      - narrow_gauge
+      - preserved
+      - funicular
+      - monorail
+      - disused
+    filters:
+      exclude_tags:
+       - ["tunnel", "yes"]
+  light_railway:
+    type: linestring
+    fields:
+    - name: geometry
+      type: geometry
+    mapping:
+      railway:
+      - tram
+      - light_rail
+      - funicular
+      - monorail
+    filters:
+      exclude_tags:
+       - ["tunnel", "yes"]

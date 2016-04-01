@@ -10,12 +10,13 @@ In the model we add a buffer to **noisy objects**. This is the area that is prob
 In order for this to work we make several assumptions:
 
 1. Highways, trunks, primary and secondary roads are noisy. Normal street or service roads are not
-2. Retail and industrial zones always have a noisy base limit
-3. All shops and food places (especially restaurants) are noisy
-4. Most party and event buildings are noisy (except some shady places)
-5. Most leisure buildings are noisy
-6. Some sport buildings are noisy
-7. Some tourism buildings are noisy
+2. Railways are noisy 
+3. Retail and industrial zones always have a noisy base limit
+4. All shops and food places (especially restaurants) are noisy
+5. Most party and event buildings are noisy (except some shady places)
+6. Most leisure buildings are noisy
+7. Some sport buildings are noisy
+8. Some tourism buildings are noisy
 
 For OSM features that match this criterias we assign a buffer and remove the overlapping parts which results
 in a simple approximation of noise pollution.
@@ -49,6 +50,13 @@ traffic volume and all the other fancy stuff - but it is simple enough to be app
 | highway=primary   | 35m | 160m | 300m |
 | highway=secondary |     | 80m  | 125m |
 | highway=tertiary  |     | 35m  | 65m  |
+
+### Railways
+
+| Tag                         | L1  | L2   | L3   |
+|-----------------------------|-----|------|------|
+| rail=[rail,narrow_gauge,..] | 30m | 60m | 100m  |
+| rail=[light_rail,tram,..]   |     | 30m | 60m   |
 
 ### Industrial and Retail Zones
 
