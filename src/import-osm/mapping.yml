@@ -8,6 +8,9 @@ tables:
       highway:
       - motorway
       - motorway_link
+    filters:
+      exclude_tags:
+       - ["tunnel", "yes"]
   trunk:
     type: linestring
     fields:
@@ -17,6 +20,9 @@ tables:
       highway:
       - trunk
       - trunk_link
+    filters:
+      exclude_tags:
+       - ["tunnel", "yes"]
   primary_road:
     type: linestring
     fields:
@@ -26,6 +32,9 @@ tables:
       highway:
       - primary
       - primary_link
+    filters:
+      exclude_tags:
+       - ["tunnel", "yes"]
   secondary_road:
     type: linestring
     fields:
@@ -35,6 +44,9 @@ tables:
       highway:
       - secondary
       - secondary_link
+    filters:
+      exclude_tags:
+       - ["tunnel", "yes"]
   tertiary_road:
     type: linestring
     fields:
@@ -44,6 +56,9 @@ tables:
       highway:
       - tertiary
       - tertiary_link
+    filters:
+      exclude_tags:
+       - ["tunnel", "yes"]
   industrial_zone:
     type: polygon
     fields:

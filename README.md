@@ -61,8 +61,8 @@ traffic volume and all the other fancy stuff - but it is simple enough to be app
 
 | Tag                       | L1  | L2   | L3   |
 |---------------------------|-----|------|------|
-| shop=[any]                | 10m | 30m | 60m |
-| amenity=[bar,bbq,cafe,..] | 15m | 35m | 60m |
+| shop=[any]                |     | 30m | 65m |
+| amenity=[bar,bbq,cafe,..] |     | 35m | 75m |
 
 ### Party
 
@@ -75,14 +75,15 @@ traffic volume and all the other fancy stuff - but it is simple enough to be app
 
 | Tag                           | L1  | L2   | L3   |
 |-------------------------------|-----|------|------|
-| leisure=[beach_resort,zoo,..] | 30m | 55m  | 70m  |
+| leisure=[beach_resort,zoo,..] | 35m | 55m  | 75m  |
 
 ### Sport
 
 | Tag                         | L1  | L2   | L3   |
 |-----------------------------|-----|------|------|
-| sporty=[baseball,soccer,..] | 30m | 60m  | 95m  |
+| sporty=[baseball,soccer,..] | 40m | 60m  | 80m  |
 
+These values are implemented in the vector tile data source in `src/vector-datasource/data.yml`.
 
 ### Get Started
 
@@ -125,7 +126,6 @@ docker-compose up mapbox-studio
 Login and open the source project via `Browse` mounted at `/projects`. You should see `vector-datasource.tm2source`.
 Open this project and navigate to the location of your extract to check the noise pollution visualized
 in the vector data editor.
-
 
 ### Components
 

@@ -42,3 +42,9 @@ export-vectortiles:
     BBOX: "5.8559113 45.717995 10.5922941 47.9084648"
     MIN_ZOOM: "10"
     MAX_ZOOM: "10"
+serve-vectortiles:
+  image: "klokantech/tileserver-php"
+  volumes:
+   - ./data:/var/www
+  ports:
+   - "8080:80"

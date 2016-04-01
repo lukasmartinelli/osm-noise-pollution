@@ -2,12 +2,12 @@ _prefs:
   disabled: []
   inspector: false
   mapid: morgenkaffee.c6677fff
-  rev: s-dfb667cc
+  rev: s-c6aaea6d
   saveCenter: true
 attribution: ''
 center: 
-  - 8.41
-  - 47.221
+  - 8.5315
+  - 47.3789
   - 10
 description: ''
 Layer: 
@@ -57,27 +57,19 @@ Layer:
       srid: ''
       table: |-
         (
-          SELECT st_collect(st_buffer(geometry, 10)) AS geometry, 1 AS noise_level
+          SELECT st_simplify(st_collect(st_buffer(geometry, 30)), 30) AS geometry, 2 AS noise_level
           FROM osm_shop
           WHERE geometry && !bbox!
           UNION ALL
-          SELECT st_collect(st_buffer(geometry, 30)) AS geometry, 2 AS noise_level
+          SELECT st_simplify(st_collect(st_buffer(geometry, 65)), 30) AS geometry, 3 AS noise_level
           FROM osm_shop
           WHERE geometry && !bbox!
           UNION ALL
-          SELECT st_collect(st_buffer(geometry, 60)) AS geometry, 3 AS noise_level
-          FROM osm_shop
-          WHERE geometry && !bbox!
-          UNION ALL
-          SELECT st_collect(st_buffer(geometry, 15)) AS geometry, 1 AS noise_level
+          SELECT st_simplify(st_collect(st_buffer(geometry, 35)), 30) AS geometry, 2 AS noise_level
           FROM osm_food
           WHERE geometry && !bbox!
           UNION ALL
-          SELECT st_collect(st_buffer(geometry, 35)) AS geometry, 2 AS noise_level
-          FROM osm_food
-          WHERE geometry && !bbox!
-          UNION ALL
-          SELECT st_collect(st_buffer(geometry, 60)) AS geometry, 3 AS noise_level
+          SELECT st_simplify(st_collect(st_buffer(geometry, 75)), 30) AS geometry, 3 AS noise_level
           FROM osm_food
           WHERE geometry && !bbox!
         ) AS t
@@ -139,7 +131,7 @@ Layer:
       srid: ''
       table: |-
         (
-          SELECT st_buffer(geometry, 30) AS geometry, 1 AS noise_level
+          SELECT st_buffer(geometry, 40) AS geometry, 1 AS noise_level
           FROM osm_sport
           WHERE geometry && !bbox!
           UNION ALL
@@ -147,7 +139,7 @@ Layer:
           FROM osm_sport
           WHERE geometry && !bbox!
           UNION ALL
-          SELECT st_buffer(geometry, 95) AS geometry, 3 AS noise_level
+          SELECT st_buffer(geometry, 80) AS geometry, 3 AS noise_level
           FROM osm_sport
           WHERE geometry && !bbox!
         ) AS t
@@ -174,7 +166,7 @@ Layer:
       srid: ''
       table: |-
         (
-          SELECT st_buffer(geometry, 30) AS geometry, 1 AS noise_level
+          SELECT st_buffer(geometry, 35) AS geometry, 1 AS noise_level
           FROM osm_leisure
           WHERE geometry && !bbox!
           UNION ALL
@@ -182,7 +174,7 @@ Layer:
           FROM osm_leisure
           WHERE geometry && !bbox!
           UNION ALL
-          SELECT st_buffer(geometry, 70) AS geometry, 3 AS noise_level
+          SELECT st_buffer(geometry, 75) AS geometry, 3 AS noise_level
           FROM osm_leisure
           WHERE geometry && !bbox!
         ) AS t
@@ -304,6 +296,6 @@ Layer:
     properties: 
       "buffer-size": 8
     srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
-maxzoom: 14
+maxzoom: 10
 minzoom: 10
 name: OSM noise pollution
