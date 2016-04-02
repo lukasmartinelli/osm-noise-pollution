@@ -23,10 +23,6 @@ in a simple approximation of noise pollution.
 
 ![Noise map of Zurich](https://api.mapbox.com/styles/v1/morgenkaffee/cimi6phf0007wcem3cyr9cl3o/static/8.538961,47.372476,13.71,0.00,0.00/900x600?access_token=pk.eyJ1IjoibW9yZ2Vua2FmZmVlIiwiYSI6IjIzcmN0NlkifQ.0LRTNgCc-envt9d5MzR75w)
 
-## Develop
-
-We use the Docker Compose based workflow we developed at [osm2vectortiles](https://github.com/osm2vectortiles/osm2vectortiles) to create an ETL workflow to get data in and out of PostGIS. The Mapbox GL stylesheet used for the map can be found in `src/mapbox-gl/style.json`.
-
 ## Noise Levels
 
 The noise pollution areas are divided into three noise level.
@@ -92,6 +88,11 @@ traffic volume and all the other fancy stuff - but it is simple enough to be app
 | `sporty=[baseball,soccer,..]` | `40m` | `60m`  | `80m`
 
 These values are implemented in the vector tile data source in `src/vector-datasource/data.yml`.
+
+## Develop
+
+We use the Docker Compose based workflow we developed at [osm2vectortiles](https://github.com/osm2vectortiles/osm2vectortiles) to create an ETL workflow to get data in and out of PostGIS. The Mapbox GL stylesheet used for the map can be found in `src/mapbox-gl/style.json`.
+
 
 ### Get Started
 
