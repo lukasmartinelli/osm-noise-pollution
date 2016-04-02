@@ -1,6 +1,6 @@
 {
     "version": 8,
-    "name": "Bright",
+    "name": "OSM Noise Pollution",
     "metadata": {
         "mapbox:autocomposite": true,
         "mapbox:groups": {
@@ -14,7 +14,7 @@
             },
             "1459193066085.223": {
                 "name": "Noise",
-                "collapsed": false
+                "collapsed": true
             },
             "1444849320558.5054": {
                 "name": "Water labels",
@@ -30,7 +30,7 @@
             },
             "1444849388993.3071": {
                 "name": "Landuse",
-                "collapsed": false
+                "collapsed": true
             },
             "1444849242106.713": {
                 "name": "Country labels",
@@ -42,7 +42,7 @@
             },
             "1444849345966.4436": {
                 "name": "Roads",
-                "collapsed": true
+                "collapsed": false
             },
             "1444849307123.581": {
                 "name": "Admin  lines",
@@ -66,15 +66,15 @@
             },
             "1444849297111.495": {
                 "name": "POI labels",
-                "collapsed": false
+                "collapsed": true
             }
         }
     },
     "center": [
-        8.522740171258079,
-        47.37498321971745
+        8.509536455302538,
+        47.36251660509191
     ],
-    "zoom": 12.528653547248718,
+    "zoom": 12.50985829847463,
     "bearing": 0,
     "pitch": 0,
     "sources": {
@@ -197,8 +197,20 @@
                 "wood"
             ],
             "paint": {
-                "fill-color": "#6a4",
-                "fill-opacity": 0.4
+                "fill-color": "hsl(100, 43%, 47%)",
+                "fill-opacity": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            10,
+                            0.1
+                        ],
+                        [
+                            12,
+                            0.3
+                        ]
+                    ]
+                }
             },
             "metadata": {
                 "mapbox:group": "1444849388993.3071"
@@ -327,7 +339,20 @@
             "source": "composite",
             "source-layer": "water",
             "paint": {
-                "fill-color": "hsl(210, 52%, 68%)"
+                "fill-color": "hsl(210, 52%, 68%)",
+                "fill-opacity": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            10,
+                            0.6
+                        ],
+                        [
+                            12,
+                            1
+                        ]
+                    ]
+                }
             },
             "metadata": {
                 "mapbox:group": "1444849382550.77"
@@ -380,7 +405,7 @@
             "source": "composite",
             "id": "aeroway_fill",
             "paint": {
-                "fill-color": "#f0ede9",
+                "fill-color": "hsla(43, 85%, 60%, 0.9)",
                 "fill-opacity": 0.7
             },
             "source-layer": "aeroway"
@@ -408,7 +433,7 @@
             "source": "composite",
             "id": "aeroway_runway",
             "paint": {
-                "line-color": "#f0ede9",
+                "line-color": "hsla(25, 72%, 51%, 0.7)",
                 "line-width": {
                     "base": 1.2,
                     "stops": [
@@ -448,7 +473,7 @@
             "source": "composite",
             "id": "aeroway_taxiway",
             "paint": {
-                "line-color": "#f0ede9",
+                "line-color": "hsla(25, 72%, 51%, 0.7)",
                 "line-width": {
                     "base": 1.2,
                     "stops": [
@@ -1402,7 +1427,11 @@
                             22
                         ]
                     ]
-                }
+                },
+                "line-dasharray": [
+                    0.5,
+                    0.25
+                ]
             },
             "source-layer": "road"
         },
@@ -1617,7 +1646,7 @@
             },
             "id": "tunnel_trunk_primary",
             "paint": {
-                "line-color": "hsl(22, 34%, 53%)",
+                "line-color": "hsla(1, 38%, 52%, 0.95)",
                 "line-width": {
                     "base": 1.2,
                     "stops": [
@@ -1841,6 +1870,19 @@
                             11
                         ]
                     ]
+                },
+                "line-opacity": {
+                    "base": 0.9,
+                    "stops": [
+                        [
+                            12,
+                            0.3
+                        ],
+                        [
+                            18,
+                            1
+                        ]
+                    ]
                 }
             },
             "source-layer": "road"
@@ -1965,10 +2007,11 @@
                             0
                         ],
                         [
-                            12.5,
+                            14,
                             1
                         ]
-                    ]
+                    ],
+                    "base": 1
                 }
             },
             "source-layer": "road"
@@ -2360,15 +2403,15 @@
                     "stops": [
                         [
                             14,
-                            0.4
+                            0.7
                         ],
                         [
                             15,
-                            0.75
+                            1.2
                         ],
                         [
                             20,
-                            2
+                            6
                         ]
                     ]
                 }
@@ -2385,6 +2428,38 @@
                 "line-dasharray": [
                     0.2,
                     8
+                ],
+                "line-width": {
+                    "base": 1.4,
+                    "stops": [
+                        [
+                            14.5,
+                            2
+                        ],
+                        [
+                            15,
+                            4
+                        ],
+                        [
+                            20,
+                            20
+                        ]
+                    ]
+                }
+            },
+            "metadata": {
+                "mapbox:group": "1444849345966.4436"
+            },
+            "interactive": true,
+            "ref": "road_major_rail"
+        },
+        {
+            "id": "road_minor_rail_hatching",
+            "paint": {
+                "line-color": "hsl(0, 83%, 37%)",
+                "line-dasharray": [
+                    0.2,
+                    4
                 ],
                 "line-width": {
                     "base": 1.4,
@@ -2408,7 +2483,51 @@
                 "mapbox:group": "1444849345966.4436"
             },
             "interactive": true,
-            "ref": "road_major_rail"
+            "type": "line",
+            "filter": [
+                "all",
+                [
+                    "==",
+                    "class",
+                    "minor_rail"
+                ],
+                [
+                    "!in",
+                    "structure",
+                    "bridge",
+                    "tunnel"
+                ]
+            ],
+            "source": "composite",
+            "source-layer": "road"
+        },
+        {
+            "id": "road_minor_rail",
+            "paint": {
+                "line-color": "hsl(0, 83%, 37%)",
+                "line-width": {
+                    "base": 1.4,
+                    "stops": [
+                        [
+                            14,
+                            0.4
+                        ],
+                        [
+                            15,
+                            0.75
+                        ],
+                        [
+                            20,
+                            2
+                        ]
+                    ]
+                }
+            },
+            "metadata": {
+                "mapbox:group": "1444849345966.4436"
+            },
+            "interactive": true,
+            "ref": "road_minor_rail_hatching"
         },
         {
             "interactive": true,
@@ -3629,7 +3748,8 @@
                         ]
                     ]
                 },
-                "symbol-placement": "line"
+                "symbol-placement": "line",
+                "text-transform": "none"
             },
             "metadata": {
                 "mapbox:group": "1456163609504.0715"
@@ -3643,9 +3763,9 @@
             "source": "composite",
             "id": "road_label",
             "paint": {
-                "text-color": "hsl(0, 71%, 19%)",
-                "text-halo-color": "hsla(0, 29%, 89%, 0)",
-                "text-halo-blur": 3,
+                "text-color": "hsl(0, 52%, 26%)",
+                "text-halo-color": "hsla(43, 71%, 79%, 0.8)",
+                "text-halo-blur": 1,
                 "text-halo-width": 2
             },
             "source-layer": "road_label"
@@ -3660,7 +3780,7 @@
                     "Arial Unicode MS Bold"
                 ],
                 "text-size": 11,
-                "icon-image": "motorway_{reflen}",
+                "icon-rotation-alignment": "viewport",
                 "symbol-placement": {
                     "base": 1,
                     "stops": [
@@ -3676,7 +3796,7 @@
                 },
                 "symbol-spacing": 500,
                 "text-rotation-alignment": "viewport",
-                "icon-rotation-alignment": "viewport"
+                "icon-image": "motorway_{reflen}"
             },
             "metadata": {
                 "mapbox:group": "1456163609504.0715"
@@ -4444,7 +4564,7 @@
     ],
     "created": "2016-04-01T20:50:22.965Z",
     "id": "cimi6phf0007wcem3cyr9cl3o",
-    "modified": "2016-04-01T22:28:09.346Z",
+    "modified": "2016-04-02T08:39:25.318Z",
     "owner": "morgenkaffee",
     "draft": false
 }
