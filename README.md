@@ -21,11 +21,11 @@ In order for this to work we make several assumptions:
 For OSM features that match this criterias we assign a buffer and remove the overlapping parts which results
 in a simple approximation of noise pollution.
 
-![Noise map of Zurich](noise_map.png)
+![Noise map of Zurich](https://api.mapbox.com/styles/v1/morgenkaffee/cimi6phf0007wcem3cyr9cl3o/static/8.539422,47.373437,13.17,0.00,0.00/600x400?access_token=pk.eyJ1IjoibW9yZ2Vua2FmZmVlIiwiYSI6IjIzcmN0NlkifQ.0LRTNgCc-envt9d5MzR75w)
 
 ## Develop
 
-We use the Docker Compose based workflow we developed at [osm2vectortiles](https://github.com/osm2vectortiles/osm2vectortiles) to create an ETL workflow to get data in and out of PostGIS. The Mapbox GL stylesheet used for the map can be found in `style.json`.
+We use the Docker Compose based workflow we developed at [osm2vectortiles](https://github.com/osm2vectortiles/osm2vectortiles) to create an ETL workflow to get data in and out of PostGIS. The Mapbox GL stylesheet used for the map can be found in `src/mapbox-gl/style.json`.
 
 ## Noise Levels
 
