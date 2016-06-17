@@ -1,4 +1,4 @@
-# osm-noise-pollution
+# osm-noise-pollution [![Build Status](https://travis-ci.org/lukasmartinelli/osm-noise-pollution.svg?branch=master)](https://travis-ci.org/lukasmartinelli/osm-noise-pollution)
 
 **[Checkout the global noise pollution map online](http://lukasmartinelli.ch/gis/2016/04/03/openstreetmap-noise-pollution-map.html)**
 
