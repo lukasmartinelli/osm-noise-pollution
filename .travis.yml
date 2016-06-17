@@ -3,7 +3,8 @@ language: bash
 services:
   - docker
 before_install:
-  - docker-compose build
+  - wget -nc -P "$TRAVIS_BUILD_DIR/data" "http://download.geofabrik.de/europe/switzerland-latest.osm.pbf"
+  - docker-compose build postgres import-osm export-vectortiles
 script:
   - docker-compose up -d postgis
   - sleep 5
