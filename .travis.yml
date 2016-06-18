@@ -6,7 +6,7 @@ before_install:
   - wget -nc -P "$TRAVIS_BUILD_DIR/data" "http://download.geofabrik.de/europe/switzerland-latest.osm.pbf"
   - docker-compose build postgres import-osm export-vectortiles
 script:
-  - docker-compose up -d postgis
+  - docker-compose up -d postgres
   - sleep 5
   - docker-compose run import-osm
   - docker-compose run export-vectortiles
