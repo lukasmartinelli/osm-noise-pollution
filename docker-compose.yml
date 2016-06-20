@@ -7,14 +7,14 @@ cache:
   volumes:
   - /data/cache
 postgres:
-  build: "src/postgres"
+  image: "lukasmartinelli/osm-noise-pollution:postgres"
   mem_limit: 500000000
   volumes_from:
    - pgdata
   ports:
    - "5432"
 import-osm:
-  build: "src/import-osm"
+  image: "lukasmartinelli/osm-noise-pollution:import-osm"
   command: ./import-osm.sh
   volumes:
    - ./data:/data/import
@@ -23,7 +23,7 @@ import-osm:
   links:
    - postgres:postgres
 mapbox-studio:
-  build: "src/mapbox-studio"
+  image: "lukasmartinelli/osm-noise-pollution:mapbox-studio"
   mem_limit: 500000000
   volumes:
    - ./src/vector-datasource:/projects/vector-datasource.tm2source
@@ -32,7 +32,7 @@ mapbox-studio:
   ports:
    - "3000:3000"
 export-vectortiles:
-  build: "src/export-vectortiles"
+  image: "lukasmartinelli/osm-noise-pollution:export-vectortiles"
   volumes:
    - ./data:/data/export
    - ./src/vector-datasource:/data/tm2source

@@ -99,8 +99,9 @@ We use the Docker Compose based workflow we developed at [osm2vectortiles](https
 ### Get Started
 
 You need a complete OSM PBF data dump either from a [country extract](http://download.geofabrik.de/index.html) or of the [entire world](http://planet.osm.org/).
-
 In this example we will work with my beloved Switzerland. Download the data and put it into the `data` directory.
+You can use Docker compose directly with the prebuilt images. If you want to develop on *osm-noise-pollution* you can build
+the images yourself running `make`.
 
 ```bash
 wget --directory-prefix=./data http://download.geofabrik.de/europe/switzerland-latest.osm.pbf
