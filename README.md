@@ -7,6 +7,11 @@ Using global street, landuse and building data from [OpenStreetMap](https://open
 we can approximate where noise pollution might happen.
 We use a very simple noise model inspired by [noise pollution concept of Cities Skylines](http://www.skylineswiki.com/Pollution#Noise_pollution).
 
+- [Radio interview about noise in Zurich](http://www.srf.ch/news/regional/zuerich-schaffhausen/viel-verkehr-viel-laerm)
+- [Maps Mania article](http://googlemapsmania.blogspot.ch/2016/04/the-worldwide-noise-pollution-map.html)
+- [Introduction into the global noise pollution map](http://lukasmartinelli.ch/gis/2016/04/03/openstreetmap-noise-pollution-map.html)
+- [Conference poster](https://github.com/lukasmartinelli/osm-noise-pollution/blob/master/geosummit_poster.pdf)
+
 [![Noise map of Zurich](http://lukasmartinelli.ch/media/noise_maps/zurich.png)](http://lukasmartinelli.ch/gis/2016/04/03/openstreetmap-noise-pollution-map.html)
 
 In the model we add a buffer to **noisy objects**. This is the area that is probably affected by noise. Very noisy objects get a high buffer and less noisy objects a smaller buffer.
