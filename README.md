@@ -1,4 +1,6 @@
-# osm-noise-pollution [![Build Status](https://travis-ci.org/lukasmartinelli/osm-noise-pollution.svg?branch=master)](https://travis-ci.org/lukasmartinelli/osm-noise-pollution)
+# osm-noise-pollution ![stability-deprecated](https://img.shields.io/badge/stability-deprecated-red.svg) [![Build Status](https://travis-ci.org/lukasmartinelli/osm-noise-pollution.svg?branch=master)](https://travis-ci.org/lukasmartinelli/osm-noise-pollution)
+
+> :warning: This repository is no longer actively maintained by Lukas Martinelli.
 
 **[Checkout the global noise pollution map online](http://lukasmartinelli.ch/gis/2016/04/03/openstreetmap-noise-pollution-map.html)**
 
@@ -7,6 +9,7 @@ Using global street, landuse and building data from [OpenStreetMap](https://open
 we can approximate where noise pollution might happen.
 We use a very simple noise model inspired by [noise pollution concept of Cities Skylines](http://www.skylineswiki.com/Pollution#Noise_pollution).
 
+- Inspired [Urban Noise Mapping](https://medium.com/@Urbica.co/urban-noise-mapping-5dfb5a49eb1c) by Urbica.
 - [Radio interview about noise in Zurich](http://www.srf.ch/news/regional/zuerich-schaffhausen/viel-verkehr-viel-laerm)
 - [Maps Mania article](http://googlemapsmania.blogspot.ch/2016/04/the-worldwide-noise-pollution-map.html)
 - [Introduction into the global noise pollution map](http://lukasmartinelli.ch/gis/2016/04/03/openstreetmap-noise-pollution-map.html)
